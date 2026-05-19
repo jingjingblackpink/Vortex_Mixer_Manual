@@ -121,6 +121,16 @@
   .tab-btn:not(.active) .tab-badge.en { background: #fef2f2; color: #dc2626; }
   .tab-btn:not(.active) .tab-badge.cn { background: #eff6ff; color: #2563eb; }
 
+  .viewer-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #dc2626;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .viewer-label.cn { color: #2563eb; }
   .viewer {
     background: var(--card);
     border-radius: var(--radius);
@@ -209,6 +219,15 @@
 
     document.querySelectorAll('.viewer-fallback').forEach(d => d.classList.remove('show'));
     document.getElementById('fallback-' + tab).classList.add('show');
+
+    var label = document.getElementById('viewer-label');
+    if (tab === 'en') {
+      label.innerHTML = '&#128196; [PDF 1] &mdash; English Manual';
+      label.className = 'viewer-label';
+    } else {
+      label.innerHTML = '&#128196; [PDF 2] &mdash; 中文说明书';
+      label.className = 'viewer-label cn';
+    }
   }
 </script>
 </head>
@@ -234,6 +253,8 @@
       &#127464;&#127475; 中文说明书 <span class="tab-badge cn">PDF 2</span>
     </button>
   </div>
+
+  <div class="viewer-label" id="viewer-label">&#128196; [PDF 1] &mdash; English Manual</div>
 
   <div class="viewer">
     <iframe

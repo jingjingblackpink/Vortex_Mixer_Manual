@@ -214,11 +214,15 @@
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
 
-    document.querySelectorAll('.viewer iframe').forEach(f => f.classList.remove('active'));
-    document.getElementById('frame-' + tab).classList.add('active');
+    var targetFrame = document.getElementById('frame-' + tab);
+    document.querySelectorAll('.viewer iframe').forEach(f => {
+      f.classList.remove('active');
+      f.style.display = 'none';
+    });
+    targetFrame.classList.add('active');
+    targetFrame.style.display = 'block';
 
     document.querySelectorAll('.viewer-fallback').forEach(d => d.classList.remove('show'));
-    document.getElementById('fallback-' + tab).classList.add('show');
 
     var label = document.getElementById('viewer-label');
     if (tab === 'en') {

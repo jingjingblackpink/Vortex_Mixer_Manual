@@ -131,6 +131,49 @@
     gap: 8px;
   }
   .viewer-label.cn { color: #2563eb; }
+  .progress-bar-wrap {
+    background: var(--card);
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-bar-wrap input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #dc2626 0%, #f97316 50%, #eab308 100%);
+    outline: none;
+    cursor: pointer;
+  }
+  .progress-bar-wrap input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .progress-bar-wrap input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .progress-bar-wrap .progress-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-light);
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: center;
+  }
+
   .viewer {
     background: var(--card);
     border-radius: var(--radius);
@@ -232,7 +275,49 @@
       label.innerHTML = '&#128196; [PDF 2] &mdash; 中文说明书';
       label.className = 'viewer-label cn';
     }
+
+    document.getElementById('progress-slider').value = 0;
+    document.getElementById('progress-label').textContent = '0%';
+    setTimeout(syncProgress, 500);
   }
+
+  function seekPDF(val) {
+    var pct = Math.round(val / 10);
+    document.getElementById('progress-label').textContent = pct + '%';
+    var frame = document.querySelector('.viewer iframe.active');
+    if (!frame) return;
+
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) {
+        try {
+          frame.contentWindow.scrollTo(0, (val / 1000) * (frame.contentWindow.document.body.scrollHeight || 3000));
+        } catch(e) {}
+        return;
+      }
+      var maxScroll = doc.documentElement.scrollHeight - doc.documentElement.clientHeight;
+      if (maxScroll > 0) {
+        frame.contentWindow.scrollTo(0, (val / 1000) * maxScroll);
+      }
+    } catch(e) {}
+  }
+
+  function syncProgress() {
+    var frame = document.querySelector('.viewer iframe.active');
+    if (!frame) return;
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc) return;
+      var maxScroll = doc.documentElement.scrollHeight - doc.documentElement.clientHeight;
+      if (maxScroll <= 0) return;
+      var current = doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+      var val = Math.round((current / maxScroll) * 1000);
+      document.getElementById('progress-slider').value = val;
+      document.getElementById('progress-label').textContent = Math.round(val / 10) + '%';
+    } catch(e) {}
+  }
+
+  setInterval(syncProgress, 800);
 </script>
 </head>
 <body>
@@ -287,6 +372,13 @@
       <p>YQ2401-05 涡旋振荡仪产品说明书</p>
       <a class="btn btn-primary" href="./YQ2401-05涡旋振荡仪产品说明书-250722.pdf" download>下载中文说明书</a>
     </div>
+  </div>
+
+  <div class="progress-bar-wrap" id="progress-bar-wrap">
+    <span style="font-size:1.1rem;">&#9664;</span>
+    <input type="range" id="progress-slider" min="0" max="1000" value="0" oninput="seekPDF(this.value)">
+    <span style="font-size:1.1rem;">&#9654;</span>
+    <span class="progress-label" id="progress-label">0%</span>
   </div>
 
   <div class="download-section">

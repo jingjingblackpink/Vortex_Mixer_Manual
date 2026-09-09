@@ -2,266 +2,54 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Vortex Mixer Manuals | YQ2401-05 涡旋振荡仪</title>
-<style>
-  :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --accent: #7c3aed;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text: #1e293b;
-    --text-light: #64748b;
-    --border: #e2e8f0;
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 40%, #6366f1 100%);
-    color: white;
-    text-align: center;
-    padding: 80px 24px 90px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 50%);
-    animation: float 20s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(20px, -20px) rotate(1deg); }
-    66% { transform: translate(-10px, 10px) rotate(-1deg); }
-  }
-  .hero-content { position: relative; z-index: 1; }
-  .hero-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
-  .hero h1 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 12px;
-  }
-  .hero .model {
-    display: inline-block;
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(10px);
-    padding: 6px 20px;
-    border-radius: 50px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-  .hero p {
-    font-size: 1.15rem;
-    opacity: 0.85;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  .hero .company {
-    margin-top: 22px;
-    font-size: 0.92rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    opacity: 0.9;
-  }
-  .hero .company .mcu {
-    display: inline-block;
-    background: rgba(0,0,0,0.2);
-    padding: 3px 14px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    margin-left: 12px;
-    letter-spacing: 0.06em;
-  }
-  .hero .version-badge {
-    position: absolute;
-    top: 20px;
-    right: 24px;
-    z-index: 2;
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 50px;
-    padding: 5px 16px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #fff;
-  }
-
-  .container {
-    max-width: 860px;
-    margin: -40px auto 0;
-    padding: 0 24px;
-    position: relative;
-    z-index: 2;
-    flex: 1;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-  @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
-
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 36px 28px;
-    text-decoration: none;
-    color: var(--text);
-    box-shadow: var(--shadow);
-    transition: transform 0.25s, box-shadow 0.25s;
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
-    border-color: #cbd5e1;
-  }
-  .card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-  }
-  .card.pdf::after { background: linear-gradient(90deg, #ef4444, #f97316); }
-  .card.intro::after { background: linear-gradient(90deg, #3b82f6, #8b5cf6); }
-
-  .card-badge {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    margin-bottom: 16px;
-  }
-  .card.pdf .card-badge { background: #fef2f2; color: #dc2626; }
-  .card.intro .card-badge { background: #eff6ff; color: #2563eb; }
-
-  .card-icon { font-size: 2.4rem; margin-bottom: 14px; display: block; }
-  .card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-  .card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
-  .card .arrow {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 16px; font-size: 0.9rem; font-weight: 600;
-  }
-  .card.pdf .arrow { color: #dc2626; }
-  .card.intro .arrow { color: #2563eb; }
-
-  .info-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 24px 32px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    margin-bottom: 20px;
-  }
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: var(--text-light);
-  }
-  .info-item .dot { width: 6px; height: 6px; border-radius: 50%; }
-  .info-item .dot.en { background: #ef4444; }
-  .info-item .dot.cn { background: #3b82f6; }
-
-  footer {
-    text-align: center;
-    padding: 32px 24px;
-    color: var(--text-light);
-    font-size: 0.82rem;
-    border-top: 1px solid var(--border);
-    margin-top: 20px;
-  }
-  footer a { color: var(--primary); text-decoration: none; font-weight: 500; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="hero">
-  <div class="version-badge">说明书版本V1.0 &middot; 时间：2026年9月7日</div>
-  <div class="hero-content">
-    <span class="hero-icon">&#129514;</span>
-    <h1>Vortex Mixer</h1>
-    <div class="model">YQ2401-05</div>
-    <p>涡旋振荡仪产品文档中心 &middot; Product Manuals Hub</p>
+  <header class="hero">
+    <div class="logo">🌀</div>
+    <h1>涡旋振荡仪</h1>
+    <div class="model">YQ2401-05 · Vortex Mixer</div>
+    <p>Product Manuals Hub · 扫码即达</p>
     <div class="company">
       上海泉心品生物科技有限公司
       <span class="mcu">MCU 版本: V2.3</span>
     </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section">
+      <h2>欢迎扫码访问，请选择：</h2>
+
+      <a class="btn" href="manuals.html">
+        <span class="ico manual">📘</span>
+        <span class="txt"><strong>产品说明书</strong><span>中文版 / 英文版 在线预览与下载</span></span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="btn" href="intro.html">
+        <span class="ico intro">📖</span>
+        <span class="txt"><strong>产品简介</strong><span>了解产品特点与参数</span></span>
+        <span class="arrow">›</span>
+      </a>
+    </section>
+
+    <div class="info-bar">
+      <div class="info-item"><span class="dot en"></span> English Manual &mdash; PDF 1</div>
+      <div class="info-item"><span class="dot cn"></span> 中文说明书 &mdash; PDF 2</div>
+      <div class="info-item hot">⚡ 扫码即达</div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="brand">上海泉心品生物科技有限公司</div>
+    <div>Hosted on <a href="https://github.com/jingjingblackpink/Vortex_Mixer_Manual">GitHub</a> &middot; Powered by GitHub Pages</div>
+  </footer>
+
+  <div class="version-stamp">
+    <span>说明书版本V1.0</span>
+    <span>时间：2026年9月7日</span>
   </div>
-</div>
-
-<div class="container">
-
-  <div class="cards">
-    <a class="card pdf" href="./manuals.html">
-      <span class="card-badge">&#128196; DOCUMENTS</span>
-      <span class="card-icon">&#128214;</span>
-      <h3>产品说明书</h3>
-      <p>中英文两个版本的 YQ2401-05 涡旋振荡仪操作手册，支持在线预览和下载。</p>
-      <span class="arrow">查看手册 &#8594;</span>
-    </a>
-
-    <a class="card intro" href="./intro.html">
-      <span class="card-badge">&#8505;&#65039; ABOUT</span>
-      <span class="card-icon">&#128269;</span>
-      <h3>产品简介</h3>
-      <p>了解 YQ2401-05 涡旋振荡仪的功能特性、技术参数与使用场景。</p>
-      <span class="arrow">了解更多 &#8594;</span>
-    </a>
-  </div>
-
-  <div class="info-bar">
-    <div class="info-item"><span class="dot en"></span> English Manual &mdash; PDF 1</div>
-    <div class="info-item"><span class="dot cn"></span> 中文说明书 &mdash; PDF 2</div>
-    <div class="info-item" style="font-weight:500;color:#6366f1;">&#9889; 扫码即达</div>
-  </div>
-
-</div>
-
-<footer>
-  Hosted on <a href="https://github.com/jingjingblackpink/Vortex_Mixer_Manual">GitHub</a>
-  &mdash; Powered by GitHub Pages
-</footer>
-
 </body>
 </html>

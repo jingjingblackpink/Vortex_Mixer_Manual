@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Product Manual | YQ2401-05 Vortex Mixer</title>
+<link rel="stylesheet" href="style.css?v=20260921">
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+
+    var targetFrame = document.getElementById('frame-' + tab);
+    document.querySelectorAll('.viewer iframe').forEach(f => {
+      f.classList.remove('active');
+      f.style.display = 'none';
+    });
+    targetFrame.classList.add('active');
+    targetFrame.style.display = 'block';
+
+    document.querySelectorAll('.viewer-fallback').forEach(d => d.classList.remove('show'));
+
+    var label = document.getElementById('viewer-label');
+    if (tab === 'en') {
+      label.innerHTML = '📄 [PDF 1] &mdash; English Manual';
+      label.className = 'viewer-label';
+    } else {
+      label.innerHTML = '📄 [PDF 2] &mdash; Chinese Manual';
+      label.className = 'viewer-label cn';
+    }
+  }
+</script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a class="back" href="index_en.html">‹ Back to Home</a>
+    <span class="title">Product Manual</span>
+  </div>
+
+  <main class="wrap wide" style="padding-top:24px">
+
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-en" onclick="switchTab('en')">
+        🇬🇧 English Manual <span class="tab-badge en">PDF 1</span>
+      </button>
+      <button class="tab-btn" id="tab-cn" onclick="switchTab('cn')">
+        🇨🇳 Chinese Manual <span class="tab-badge cn">PDF 2</span>
+      </button>
+    </div>
+
+    <div class="viewer-label" id="viewer-label">📄 [PDF 1] &mdash; English Manual</div>
+
+    <div class="viewer">
+      <iframe
+        id="frame-en"
+        src="./YQ2401-05_Vortex_Mixer_Manual_EN20260902.pdf"
+        class="active"
+        onerror="document.getElementById('fallback-en').classList.add('show')"
+        onload="this.style.display='block'; document.getElementById('fallback-en').classList.remove('show')">
+      </iframe>
+      <iframe
+        id="frame-cn"
+        src="./YQ2401-05涡旋振荡仪产品说明书-250902.pdf"
+        onerror="document.getElementById('fallback-cn').classList.add('show')"
+        onload="this.style.display='block'; document.getElementById('fallback-cn').classList.remove('show')">
+      </iframe>
+
+      <div class="viewer-fallback" id="fallback-en">
+        <span class="fallback-icon">📄</span>
+        <h3>PDF 1 &mdash; English Manual</h3>
+        <p>YQ2401-05 Vortex Mixer Manual (EN)</p>
+        <a class="action primary" href="./YQ2401-05_Vortex_Mixer_Manual_EN20260902.pdf" download>Download English Manual</a>
+      </div>
+      <div class="viewer-fallback" id="fallback-cn">
+        <span class="fallback-icon">📄</span>
+        <h3>PDF 2 &mdash; Chinese Manual</h3>
+        <p>YQ2401-05 Vortex Mixer Product Manual (Chinese)</p>
+        <a class="action primary" href="./YQ2401-05涡旋振荡仪产品说明书-250902.pdf" download>Download Chinese Manual</a>
+      </div>
+    </div>
+
+    <div class="download-section">
+      <p>If your browser does not support PDF preview, please download directly:</p>
+      <div class="download-btns">
+        <a class="action primary" href="./YQ2401-05_Vortex_Mixer_Manual_EN20260902.pdf" download>📥 Download PDF 1 (English)</a>
+        <a class="action ghost" href="./YQ2401-05涡旋振荡仪产品说明书-250902.pdf" download>📥 Download PDF 2 (Chinese)</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="brand">Shanghai Quanxinpin Biotechnology Co., Ltd.</div>
+    <div>Hosted on <a href="https://github.com/jingjingblackpink/Vortex_Mixer_Manual">GitHub</a> &middot; Powered by GitHub Pages</div>
+  </footer>
+
+</body>
+</html>
